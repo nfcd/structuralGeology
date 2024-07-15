@@ -1,4 +1,4 @@
-# structuralGeology
+# Structural Geology
 Hi,
 \
 \
