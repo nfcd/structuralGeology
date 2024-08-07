@@ -6,7 +6,7 @@ from st_coord_line import st_coord_line
 def great_circle(strike,dip,stype):
 	"""
 	great_circle computes the great circle path of a plane
-	in an equal angle or equal area stereonet of unit radius
+	on an equal angle or equal area stereonet of unit radius
 	
 	strike = strike of plane
 	dip = dip of plane
