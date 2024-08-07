@@ -25,14 +25,14 @@ def outcrop_trace(strike,dip,p1,XG,YG,ZG):
 	a[2,1] = np.sin(strike)*np.sin(dip) 
 	a[2,2] = -np.cos(dip);
 	
-	# Initialize DG
+	# initialize DG
 	n, m = XG.shape
 	DG = np.zeros((n,m))
 	
-	# Estimate the P coordinate of the outcrop point p1
+	# estimate the P coordinate of the outcrop point p1
 	P1 = a[2,0]*p1[0] + a[2,1]*p1[1] + a[2,2]*p1[2]
 	
-	# Estimate the P coordinate at each point of the DEM
+	# estimate the P coordinate at each point of the DEM
 	# grid and subtract P1
 	for i in range(0,n):
 		for j in range(0,m):

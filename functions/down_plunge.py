@@ -16,14 +16,14 @@ def down_plunge(bs,trd,plg):
 	Python function translated from the Matlab function
 	DownPlunge in Allmendinger et al. (2012)
 	"""
-	# Number of points in bed
+	# number of points in bed
 	nvtex = bs.shape[0]
 	
-	# Allocate some arrays
+	# allocate some arrays
 	a=np.zeros((3,3))
 	dpbs = np.zeros((np.shape(bs)))
 	
-	# Calculate the transformation matrix a(i,j)
+	# calculate the transformation matrix a(i,j)
 	a[0,0] = np.sin(trd)*np.sin(plg)
 	a[0,1] = np.cos(trd)*np.sin(plg)
 	a[0,2] = np.cos(plg)
@@ -33,7 +33,7 @@ def down_plunge(bs,trd,plg):
 	a[2,1] = np.cos(trd)*np.cos(plg)
 	a[2,2] = -np.sin(plg)
 	
-	# Perform transformation
+	# perform transformation
 	for nv in range(0,nvtex):
 		for i in range(0,3):
 			dpbs[nv,i] = 0.0

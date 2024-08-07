@@ -32,7 +32,7 @@ def three_points(p1,p2,p3):
 	# make the pole vector in NED coordinates
 	p = np.array([vcu[1], vcu[0], -vcu[2]])
 	
-	# Make pole point downwards
+	# make pole point downwards
 	if p[2] < 0:
 		p *= -1.0
 	

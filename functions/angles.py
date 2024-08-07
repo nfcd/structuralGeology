@@ -65,7 +65,7 @@ def plane_from_app_dips(trd1, plg1, trd2, plg2):
 	trd2, and plg2
 	Input and output angles are in radians
 	"""
-	# Compute pole to plane from apparent dips (lines)
+	# compute pole to plane from apparent dips (lines)
 	pole_trd, pole_plg = pole_from_lines(trd1,plg1,trd2,plg2)
 	# return strike and dip of plane
 	return plane_from_pole(pole_trd, pole_plg)

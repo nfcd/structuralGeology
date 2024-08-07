@@ -10,10 +10,10 @@ def pole_from_plane(strike,dip):
 	NOTE: Input/Output angles are in radians.
 	Input strike and dip is in RHR format
 	'''
-	# Some constants
+	# some constants
 	east = math.pi/2
 	
-	# Pole from plane
+	# pole from plane
 	trd = zero_twopi (strike - east)
 	plg = east - dip
 	
@@ -28,16 +28,16 @@ def plane_from_pole(trd,plg):
 	NOTE: Input/Output angles are in radians.
 	Output strike and dip is in RHR format
 	'''
-	# Some constants
+	# some constants
 	pi = math.pi
 	east = pi/2
 	
-	# Unusual case of pole pointing upwards
+	# unusual case of pole pointing upwards
 	if plg < 0.0:
 		trd += pi
 		plg *= -1.0
 		
-	# Calculate plane given its pole
+	# calculate plane given its pole
 	strike = zero_twopi(trd + east)
 	dip = east - plg
 		
