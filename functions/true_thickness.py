@@ -27,8 +27,8 @@ def true_thickness(strike,dip,top,base):
 	# from ENU to SDP coordinates
 	topn = np.zeros(3)
 	basen = np.zeros(3)
-	for i in range(0,3):
-		for j in range(0,3):
+	for i in range(3):
+		for j in range(3):
 			topn[i] = a[i,j]*top[j] + topn[i]
 			basen[i] = a[i,j]*base[j] + basen[i]
 	

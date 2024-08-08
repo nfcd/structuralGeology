@@ -34,10 +34,10 @@ def down_plunge(bs,trd,plg):
 	a[2,2] = -np.sin(plg)
 	
 	# perform transformation
-	for nv in range(0,nvtex):
-		for i in range(0,3):
+	for nv in range(nvtex):
+		for i in range(3):
 			dpbs[nv,i] = 0.0
-			for j in range(0,3):
+			for j in range(3):
 					dpbs[nv,i] = a[i,j]*bs[nv,j] + dpbs[nv,i]
 	
 	return dpbs

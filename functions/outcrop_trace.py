@@ -34,8 +34,8 @@ def outcrop_trace(strike,dip,p1,XG,YG,ZG):
 	
 	# estimate the P coordinate at each point of the DEM
 	# grid and subtract P1
-	for i in range(0,n):
-		for j in range(0,m):
+	for i in range(n):
+		for j in range(m):
 			DG[i,j] = P1 - (a[2,0]*XG[i,j] + a[2,1]*YG[i,j] + a[2,2]*ZG[i,j])
 	
 	return DG

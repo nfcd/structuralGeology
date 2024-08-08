@@ -33,7 +33,7 @@ def great_circle(strike,dip,stype):
 	rot = np.radians(np.arange(0,181,1))
 	path = np.zeros((rot.shape[0],2))
 	
-	for i in range(rot.size):
+	for i in range(rot.shape[0]):
 	# Avoid joining ends of path
 		if rot[i] == pi:
 			rot[i] = rot[i] * 0.9999

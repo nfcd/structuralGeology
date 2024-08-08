@@ -40,7 +40,7 @@ def small_circle(trda,plga,cangle,stype):
 	path1 = np.zeros((rot.shape[0],2))
 	path2 = np.zeros((rot.shape[0],2))
 	np1 = np2 = 0
-	for i in range(rot.size):
+	for i in range(rot.shape[0]):
 		# Rotate line: The line is considered as a vector
 		rtrd , rplg = rotate(trda,plga,rot[i],trd,plg,"v")
 		# Calculate stereonet coordinates and add to path
