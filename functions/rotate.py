@@ -55,6 +55,10 @@ def rotate(rtrd,rplg,rot,trd,plg,ans0):
 		for j in range(3):
 			liner[i] = a[i,j]*line[j] + liner[i]
 	
+	# make sure the rotated line is a unit vector
+	norm = np.linalg.norm(liner)
+	liner = liner/norm
+	
 	# convert to lower hemisphere projection if axis 
 	if liner[2] < 0.0 and ans0 == 'a':
 		liner *= -1.0

@@ -19,7 +19,7 @@ def st_coord_line(trd,plg,stype):
 	# Take care of negative plunges
 	if plg < 0:
 		trd = zero_twopi(trd+math.pi)
-		plg = -plg
+		plg *= -1.0
 	
 	# Equal angle stereonet
 	if stype == 0:

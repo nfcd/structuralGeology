@@ -29,7 +29,7 @@ def cart_to_sph(cn,ce,cd):
 	else:
 		trd = math.atan(ce/cn) 
 		if cn < 0.0:
-			trd = trd + pi 
+			trd += pi 
 		# make sure trend is between 0 and 2*pi
 		trd = zero_twopi(trd)
 	
