@@ -3,17 +3,17 @@ from pole import pole_from_plane
 from rotate import rotate
 from st_coord_line import st_coord_line
 
-def great_circle(strike,dip,stype):
+def great_circle(stk,dip,stype):
 	"""
 	great_circle computes the great circle path of a plane
 	on an equal angle or equal area stereonet of unit radius
 	
-	strike = strike of plane
+	stk = strike of plane
 	dip = dip of plane
 	stype = Stereonet type: 0 = equal angle, 1 = equal area
 	path = x and y coordinates of points in great circle path
 	
-	NOTE: strike and dip should be entered in radians.
+	NOTE: stk and dip should be entered in radians.
 			and follow the RHR convention
 	
 	Python function translated from the Matlab function
@@ -22,11 +22,11 @@ def great_circle(strike,dip,stype):
 	pi = np.pi
 	# Compute the pole to the plane. This will be the axis of
 	# rotation to make the great circle
-	trda, plga = pole_from_plane(strike,dip)
+	trda, plga = pole_from_plane(stk,dip)
 	
-	# Now pick the strike line at the intersection of the
+	# Now pick the stk line at the intersection of the
 	# great circle with the primitive of the stereonet
-	trd, plg = strike, 0.0
+	trd, plg = stk, 0.0
 	
 	# To make the great circle, rotate the line 180 degrees
 	# in increments of 1 degree

@@ -4,7 +4,7 @@ from pole import plane_from_pole
 
 def three_points(p1,p2,p3):
 	"""
-	three_points calculates the strike (strike) and dip (dip)
+	three_points calculates the strike (stk) and dip (dip)
 	of a plane given the east (E), north (N), and up (U)
 	coordinates of three non-collinear points on the plane
 	
@@ -13,7 +13,7 @@ def three_points(p1,p2,p3):
 	of these arrays the first, second and third entries are 
 	the E, N and U coordinates, respectively
 	
-	NOTE: strike and dip are returned in radians and they
+	NOTE: stk and dip are returned in radians and they
 	follow the right-hand rule format
 	"""
 	# make vectors v (p1 - p3) and u (p2 - p3)
@@ -39,7 +39,7 @@ def three_points(p1,p2,p3):
 	# find the trend and plunge of the pole
 	trd, plg = cart_to_sph(p[0],p[1],p[2])
 	
-	# find strike and dip of plane
-	strike, dip = plane_from_pole(trd, plg)
+	# find stk and dip of plane
+	stk, dip = plane_from_pole(trd, plg)
 	
-	return strike, dip
+	return stk, dip
