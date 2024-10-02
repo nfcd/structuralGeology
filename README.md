@@ -9,7 +9,7 @@ This is a collection of Python Jupyter Notebooks for Structural Geology, and esp
 3. Functions in the functions folder
 4. Notebooks in the notebooks folder
 
-Start in the notebooks folder and follow the notebooks.
+Start in the notebooks folder and follow the notebooks. I suggest starting with the simplest notebook nb1.
 
-I will keep adding notebooks, starting with the simplest (nb1). If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
+I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
