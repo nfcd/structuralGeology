@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def simple_shear(pts,gamma,ninc,ax):
+def simple_shear(pts,gamma,ninc,ax,d_p=True):
 	"""
 	simple_shear computes and plots displacement paths and
 	progressive finite strain history for simple shear
@@ -13,6 +13,7 @@ def simple_shear(pts,gamma,ninc,ax):
 	gamma = Engineering shear strain
 	ninc = number of strain increments
 	ax = an array of two axis handles for the plots
+	d_p = plot displacement paths (True) or not (False)
 	paths = displacement paths of points
 	pfs = progressive finite strain history. column 1 =
 		orientation of maximum stretch with respect to X1 
@@ -25,7 +26,7 @@ def simple_shear(pts,gamma,ninc,ax):
 	SimpleShear in Allmendinger et al. (2012)
 	"""
 	# incremental engineering shear strain
-	gammainc = gamma/ninc
+	gamma_inc = gamma/ninc
 	
 	# initialize displacement paths
 	npts = pts.shape[0] # Number of points
@@ -33,7 +34,7 @@ def simple_shear(pts,gamma,ninc,ax):
 	paths[0,:,:] = pts # Initial points of paths
 	
 	# calculate incr. deformation gradient tensor Eq. 8.44
-	F = np.array([[1.0, gammainc],[0.0, 1.0]])
+	F = np.array([[1.0, gamma_inc],[0.0, 1.0]])
 	
 	# compute displacement paths
 	for i in range(npts): # for all points
@@ -42,7 +43,8 @@ def simple_shear(pts,gamma,ninc,ax):
 				for L in range(2):
 					paths[j,i,k] = F[k,L]*paths[j-1,i,L] + paths[j,i,k]
 		# plot displacement path of point
-		ax[0].plot(paths[:,i,0], paths[:,i,1], "k.-")
+		if d_p:
+			ax[0].plot(paths[:,i,0], paths[:,i,1], ".-", color="gray")
 	
 	# plot initial polygon
 	inpol = np.zeros((npts+1,2))
@@ -63,7 +65,7 @@ def simple_shear(pts,gamma,ninc,ax):
 	
 	# initalize progressive finite strain history
 	pfs = np.zeros((ninc+1,2))
-	# in. state: Max. extension is at 45 deg from shear zone
+	# initial state: Max. extension is at 45 deg from shear zone
 	pfs[0,:] = [np.pi/4.0, 1.0]
 	
 	# calculate progressive finite strain history

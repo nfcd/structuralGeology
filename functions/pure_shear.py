@@ -1,18 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def pure_shear(pts,st1,ninc,ax):
+def pure_shear(pts,S1,ninc,ax,d_p=True):
 	"""
 	pure_shear computes and plots displacement paths and
 	progressive finite strain history for pure shear with
 	maximum stretching parallel to the X1 axis
 	
-	USE: paths,pfs = pure_shear(pts,st1,ninc,ax)
+	USE: paths,pfs = pure_shear(pts,S1,ninc,ax)
 	
 	pts: npoints x 2 matrix with X1 and X3 coord. of points
-	st1 = Maximum principal stretch
+	S1 = Maximum principal stretch
 	ninc = number of strain increments
 	ax = an array of two axis handles for the plots
+	d_p = plot displacement paths (True) or not (False)
 	paths = displacement paths of points
 	pfs = progressive finite strain history. column 1 =
 		orientation of maximum stretch with respect to X1
@@ -25,9 +26,9 @@ def pure_shear(pts,st1,ninc,ax):
 	PureShear in Allmendinger et al. (2012)
 	"""
 	# compute minimum principal stretch and incr. stretches
-	st1inc=st1**(1.0/ninc)
-	st3=1.0/st1
-	st3inc=st3**(1.0/ninc)
+	S1_inc=S1**(1.0/ninc)
+	S3=1.0/S1
+	S3_inc=S3**(1.0/ninc)
 	
 	# initialize displacement paths
 	npts = pts.shape[0] # Number of points
@@ -35,7 +36,7 @@ def pure_shear(pts,st1,ninc,ax):
 	paths[0,:,:] = pts # Initial points of paths
 	
 	# calculate incr. deformation gradient tensor
-	F = np.array([[st1inc, 0.0], [0.0, st3inc]])
+	F = np.array([[S1_inc, 0.0], [0.0, S3_inc]])
 	
 	# compute displacement paths
 	for i in range(npts): # for all points
@@ -43,8 +44,9 @@ def pure_shear(pts,st1,ninc,ax):
 			for k in range(2):
 				for L in range(2):
 					paths[j,i,k] = F[k,L]*paths[j-1,i,L] + paths[j,i,k]
-		# plot displacement path of point
-		ax[0].plot(paths[:,i,0], paths[:,i,1], "k.-")
+		# plot displacement path of point in gray
+		if d_p:
+			ax[0].plot(paths[:,i,0], paths[:,i,1], ".-", color="gray")
 	
 	# plot initial polygon
 	inpol = np.zeros((npts+1,2))
