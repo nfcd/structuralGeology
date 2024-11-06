@@ -32,7 +32,7 @@ So far the list of notebooks is as follows:
 19. [Pure shear](/notebooks/nb19_pure_shear.ipynb)
 20. [Simple shear](/notebooks/nb20_simple_shear.ipynb)
 21. [General shear](/notebooks/nb21_general_shear.ipynb)
-22. [Mohr Circle for strain](/notebooks/nb22_mohr_circle_strain.ipynb)
+22. [Mohr Circle for finite strain](/notebooks/nb22_mohr_circle_strain.ipynb)
 23. [The Fry method](/notebooks/nb23_fry_method.ipynb)
 
 I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
