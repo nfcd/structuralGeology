@@ -1,11 +1,11 @@
 import numpy as np
 
 def length_strain(l_i, l_f):
-    '''
+    """
     Calculates elongation (e), stretch (S), lambda (λ),
     and lambda prime (λ') from initial (l_f) and 
     final (l_f) lengths
-    '''
+    """
     # calculate elongation
     e = (l_f - l_i) / l_i
     # calculate stretch
@@ -18,13 +18,13 @@ def length_strain(l_i, l_f):
     return e, S, lam, lam_prime
 
 def length_strain_from_line(line_i, line_f):
-    '''
+    """
     Calculates elongation (e), stretch (S), lambda (λ),
     and lambda prime (λ') from initial (line_i) and
     final (line_f) line geometry. The lines are defined 
     by two points in 2D or 3D space. The points are 
     defined by a 2 x 2 or 2 x 3 numpy array.
-    '''
+    """
     # calculate initial length
     l_i = np.linalg.norm(line_i[1] - line_i[0])
     # calculate final length
@@ -35,20 +35,20 @@ def length_strain_from_line(line_i, line_f):
     return e, S, lam, lam_prime
     
 def shear_strain(psi):
-    '''
+    """
     Calculates shear strain (gamma) from 
     angular shear (psi) in radians
-    '''
+    """
     # return shear strain
     return np.tan(psi)
 
 def shear_strain_from_lines(line_1, line_2):
-    '''
+    """
     Calculates shear strain (gamma) from two lines
     that were originally orthogonal. The lines are
     defined by two points in 2D space. The points
     are defined by a 2 x 2 numpy array.
-    '''
+    """
     # calculate the direction of the first line
     dir_1 = line_1[1] - line_1[0]
     # calculate the normal of the first line
@@ -64,33 +64,33 @@ def shear_strain_from_lines(line_1, line_2):
     return gamma
 
 def area_stretch(a_i, a_f):
-    '''
+    """
     Calculates area stretch from initial (a_i) and 
     final (a_f) areas
-    '''
+    """
     # return area stretch
     return a_f / a_i
 
 def area_stretch_from_S(S1, S2):
-    '''
+    """
     Calculates area stretch from 
     two orthogonal stretches (S)
-    '''
+    """
     # return area stretch
     return S1 * S2
 
 def volume_stretch(v_i, v_f):
-    '''
+    """
     Calculates volume stretch from initial (v_i) and 
     final (v_f) volumes
-    '''
+    """
     # return volume stretch
     return v_f / v_i
 
 def volume_stretch_from_S(S1, S2, S3):
-    '''
+    """
     Calculates volume stretch from 
     three orthogonal stretches (S)
-    '''
+    """
     # return volume stretch
     return S1 * S2 * S3

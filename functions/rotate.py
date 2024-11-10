@@ -60,7 +60,7 @@ def rotate(rtrd,rplg,rot,trd,plg,ans0):
 	liner = liner/norm
 	
 	# convert to lower hemisphere projection if axis 
-	if liner[2] < 0.0 and ans0 == 'a':
+	if liner[2] < 0.0 and ans0 == "a":
 		liner *= -1.0
 		
 	# convert from direction cosines back to trend and plunge

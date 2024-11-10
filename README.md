@@ -34,7 +34,12 @@ So far the list of notebooks is as follows:
 21. [General shear](/notebooks/nb21_general_shear.ipynb)
 22. [Mohr Circle for finite strain](/notebooks/nb22_mohr_circle_strain.ipynb)
 23. [The Fry method](/notebooks/nb23_fry_method.ipynb)
+24. [Stress](/notebooks/nb24_stress.ipynb)
+25. [Mohr Circle for stress](/notebooks/nb25_mohr_circle_stress.ipynb)
+26. [Normal and shear tractions on plane](/notebooks/nb26_tractions_on_plane.ipynb)
+27. [Mohr Circle for stress in 3D](/notebooks/nb27_mohr_circle_stress_3d.ipynb)
+28. [Slip tendency](/notebooks/nb28_slip_tendency.ipynb)
 
 I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last update: Nov. 5, 2024
+Last update: Nov. 10, 2024
