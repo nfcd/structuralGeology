@@ -13,8 +13,8 @@ def slip_tendency(p_stress, pole):
         row 3 = minimum stress magnitude and direction cosines (NED)
     pole = 1 x 3 array with the direction cosines (NED) of the pole to the plane
     Output:
-    tau = shear traction
     sigma = normal traction
+    tau = shear traction
     Ts = slip tendency
     """
     # magnitude of the principal stresses
