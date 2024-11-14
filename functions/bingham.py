@@ -97,14 +97,11 @@ def bingham(T,P,stype,ax):
 	ev[1,0] = D[1]	  # Intermediate eigenvalue
 	ev[2,0] = D[0]	  # Minimum eigenvalue
 	# trend and plunge of largest eigenvalue: column 3 of V
-	ev[0,1], ev[0,2] = cart_to_sph(V[0,2], V[1,2], 
-		V[2,2])
+	ev[0,1], ev[0,2] = cart_to_sph(V[0,2], V[1,2], V[2,2])
 	# trend and plunge of interm. eigenvalue: column 2 of V
-	ev[1,1], ev[1,2] = cart_to_sph(V[0,1], V[1,1], 
-		V[2,1])
+	ev[1,1], ev[1,2] = cart_to_sph(V[0,1], V[1,1], V[2,1])
 	# trend and plunge of minimum eigenvalue: column 1 of V
-	ev[2,1], ev[2,2] = cart_to_sph(V[0,0], V[1,0], 
-		V[2,0])
+	ev[2,1], ev[2,2] = cart_to_sph(V[0,0], V[1,0], V[2,0])
 	
 	# initialize conf
 	conf = np.zeros((2,2))
@@ -115,12 +112,10 @@ def bingham(T,P,stype,ax):
 		e11 = e22 = e12 = d11 = d22 = d12 = 0
 		en11 = 1/(nlines*(ev[2,0]-ev[0,0])**2)
 		en22 = 1/(nlines*(ev[1,0]-ev[0,0])**2)
-		en12 = 1/(nlines*(ev[2,0]-ev[0,0])*(ev[1,0]-
-			ev[0,0]))
+		en12 = 1/(nlines*(ev[2,0]-ev[0,0])*(ev[1,0]-ev[0,0]))
 		dn11 = en11
 		dn22 = 1/(nlines*(ev[2,0]-ev[1,0])**2)
-		dn12 = 1/(nlines*(ev[2,0]-ev[1,0])*(ev[2,0]-
-			ev[0,0]))
+		dn12 = 1/(nlines*(ev[2,0]-ev[1,0])*(ev[2,0]-ev[0,0]))
 		vec = np.zeros((3,3))
 		for i in range(3):
 			vec[i,0] = np.sin(ev[i,2]+east)*np.cos(twopi-

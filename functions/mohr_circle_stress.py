@@ -152,12 +152,8 @@ def mohr_circle_stress(stress,tx1,px1,tx3,planes,ax):
 	ax.spines["left"].set_position("zero")
 	
 	# eliminate upper and right axes
-	ax.spines["right"].set_color("none")
-	ax.spines["top"].set_color("none")
-	
-	# show ticks in the left and lower axes only
-	ax.xaxis.set_ticks_position("bottom")
-	ax.yaxis.set_ticks_position("left")
+	ax.spines["right"].set_visible(False)
+	ax.spines["top"].set_visible(False)
 	
 	# add labels at end of axes
 	ax.set_xlabel(r"$\sigma$",x=1)
