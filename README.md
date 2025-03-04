@@ -9,7 +9,7 @@ This is a collection of Python Jupyter Notebooks for Structural Geology, and esp
 3. Functions in the functions folder
 4. Notebooks in the notebooks folder
 
-So far the list of notebooks is as follows:
+The list of notebooks is as follows:
 
 1. [Orientation](/notebooks/nb1_orientation.ipynb)
 2. [Vectors](/notebooks/nb2_vectors.ipynb)
