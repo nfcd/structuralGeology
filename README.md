@@ -43,8 +43,9 @@ So far the list of notebooks is as follows:
 30. [Which fault is more likely?](/notebooks/nb30_fault_likelihood.ipynb)
 31. [Faults and stress magnitudes](/notebooks/nb31_faults_magnitude_stress.ipynb)
 32. [P and T axes](/notebooks/nb32_p_t_axes.ipynb)
+33. [Dip isogons](/notebooks/nb33_dip_isogons.ipynb)
 
 
 I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last update: Nov. 14, 2024
+Last update: Feb. 4, 2025
