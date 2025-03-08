@@ -44,8 +44,12 @@ The list of notebooks is as follows:
 31. [Faults and stress magnitudes](/notebooks/nb31_faults_magnitude_stress.ipynb)
 32. [P and T axes](/notebooks/nb32_p_t_axes.ipynb)
 33. [Dip isogons](/notebooks/nb33_dip_isogons.ipynb)
+34. [Fault bend folds](/notebooks/nb34_fault_bend_fold.ipynb)
+35. [Fixed axis fault propagation folds](/notebooks/nb35_fixed_axis_fpf.ipynb)
+36. [Parallel fault propagation folds](/notebooks/nb36_parallel_fpf.ipynb)
+37. [Trishear fault propagation folds](/notebooks/nb37_trishear.ipynb)
 
 
 I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last update: March. 4, 2025
+Last update: March. 8, 2025
