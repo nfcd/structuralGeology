@@ -118,7 +118,7 @@ def trishear(yp, p_sect, p_tri, sinc, G=0.0):
         YF = np.array([yt, ytf])
 
         # make trishear boundaries
-        axlo = np.arange(0, 310, 10)
+        axlo = np.arange(0, extent/3, extent/30)
         htz = axlo * m
         ftz = -axlo * m
         XHTZ = (axlo * a11 + htz * a21) + xtf
@@ -134,42 +134,28 @@ def trishear(yp, p_sect, p_tri, sinc, G=0.0):
         ax.set_ylim(0, 2.0*max(yp))
         ax.set_aspect("equal")
 
-        # plot beds
-        # split hanging wall and footwall points
-        xhb = np.zeros((XP.shape[0], XP.shape[1]))
-        yhb = np.zeros((XP.shape[0], XP.shape[1]))
-        xfb = np.zeros((XP.shape[0], XP.shape[1]))
-        yfb = np.zeros((XP.shape[0], XP.shape[1]))
+        # plot beds, split hanging wall and footwall points
         for j in range(XP.shape[0]):
-            c_hw = 0
-            c_fw = 0
+            c_hw = 0 # count hanging wall points
             for k in range(XP.shape[1]):
                 # if hanging wall points
                 if XP[j, k] <= xt + (YP[j, k] - yt) / tan_ramp:
-                    xhb[j,c_hw] = XP[j, k]
-                    yhb[j,c_hw] = YP[j, k]
                     c_hw += 1
-                # if footwall points
-                else:
-                    xfb[j,c_fw] = XP[j, k]
-                    yfb[j,c_fw] = YP[j, k]
-                    c_fw += 1
-            # plot the beds
             # pre-growth strata
             if j < yp.shape[0]:
-                ax.plot(xhb[j,:c_hw], yhb[j,:c_hw], 'k-')
-                ax.plot(xfb[j,:c_fw], yfb[j,:c_fw], 'k-')
+                ax.plot(XP[j,:c_hw], YP[j,:c_hw], "k-")
+                ax.plot(XP[j,c_hw:], YP[j,c_hw:], "k-")
             # growth strata
             else:
-                ax.plot(xhb[j,:c_hw], yhb[j,:c_hw], 'g-')
-                ax.plot(xfb[j,:c_fw], yfb[j,:c_fw], 'g-')
+                ax.plot(XP[j,:c_hw], YP[j,:c_hw], "g-")
+                ax.plot(XP[j,c_hw:], YP[j,c_hw:], "g-")
 
         # plot fault
-        ax.plot(XF, YF, 'r-', linewidth=2)
+        ax.plot(XF, YF, "r-", linewidth=2)
 
         # plot trishear boundaries
-        ax.plot(XHTZ, YHTZ, 'b-')
-        ax.plot(XFTZ, YFTZ, 'b-')
+        ax.plot(XHTZ, YHTZ, "b-")
+        ax.plot(XFTZ, YFTZ, "b-")
 
         # show amount of slip
         ax.text(0.8*extent, 1.75*max(yp), "Slip = " + str(i*np.abs(sinc)))
