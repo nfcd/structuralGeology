@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from IPython.display import display, clear_output
 from trishear import vel_trishear
 
-def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
+def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0, d_tz=False):
     """
     trishear_sed plots the tectonic and sedimentary
     evolution of a 2D trishear fault propagation fold.
@@ -26,9 +26,10 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
         base level rise (m/ka), background sedimentation 
         rate (m/ka), slip increment (m/ka), and time 
         interval at which growth layers are added (ka)
-
     diffusion = diffusion coefficient (m^2/a). The default
         is 3.0.
+    d_tz = boolean. If True, the trishear boundaries are
+        plotted. The default is False.
 
     Note: ramp and trishear angles should be in radians
           For reverse faults use positive slip and increment
@@ -100,6 +101,11 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
     # a time counter for growth layers
     c_grow = 0.0
 
+    # smoothing factor for the ground surface
+    # larger s means more smoothing
+    # s = len(xp) seems to work well
+    s = len(xp)
+
     # create a figure and axis
     fig, ax = plt.subplots()
 
@@ -111,13 +117,13 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
         # beds
         for j in range(YP.shape[0]):
             # if uppermost bed (ground surface)
-            if j == YP.shape[0]-1:
-                # fit a cubic spline to the ground surface
-                spline = UnivariateSpline(xp, YP[j,:])
+            if j == YP.shape[0]-1:                
+                # fit a smmooth  cubic spline to the ground surface
+                spline = UnivariateSpline(xp, YP[j,:], s=s)
                 # first derivative
-                first_der = spline.derivative(n=1)(xp)
+                first_der = spline.derivative(1)(xp)
                 # second derivative
-                second_der = spline.derivative(n=2)(xp)
+                second_der = spline.derivative(2)(xp)
             # transform to fault coordinates
             f_xp = (xp - xt) * a11 + (YP[j,:] - yt) * a12
             f_yp = (xp - xt) * a21 + (YP[j,:] - yt) * a22
@@ -192,8 +198,9 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
         ax.plot(XF, YF, "r-", linewidth=2)
 
         # plot trishear boundaries
-        ax.plot(XHTZ, YHTZ, "b-")
-        ax.plot(XFTZ, YFTZ, "b-")
+        if d_tz:
+            ax.plot(XHTZ, YHTZ, "b-")
+            ax.plot(XFTZ, YFTZ, "b-")
         
         # show amount of slip
         ax.text(0.75*extent, 2.75*max(yp), "Slip = " + str(i*np.abs(sinc)) + " m")
@@ -213,4 +220,5 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
 
     # prevents Jupyter from displaying another plot
     plt.close(fig)
+
         
