@@ -22,11 +22,10 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
         the fault tip, the y coordinate of the fault tip,
         the ramp angle, the P/S, the trishear angle,
         and the concentration factor
-    sed = 6-elements list with the time per increment (ka),
-        total run time (Ma), base level rise (m/ka),
-        background sedimentation rate (m/ka), 
-        slip increment (m/ka), and time interval at which 
-        growth layers are added (ka)
+    sed = 5-elements list with the total run time (Ma), 
+        base level rise (m/ka), background sedimentation 
+        rate (m/ka), slip increment (m/ka), and time 
+        interval at which growth layers are added (ka)
 
     diffusion = diffusion coefficient (m^2/a). The default
         is 3.0.
@@ -34,6 +33,7 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
     Note: ramp and trishear angles should be in radians
           For reverse faults use positive slip and increment
           For normal faults use negative slip and increment
+          Every increment of deformation is 1.0 ka
 
     Returns: None but plots the evolution of the
         trishear fault propagation fold
@@ -73,25 +73,22 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
      # this speeds up the computation
     cos_ramp = np.cos(ramp)
     sin_ramp = np.sin(ramp)
-    tan_ramp = np.tan(ramp)
 
-    # time per increment (ka),
     # total run time (Ma), base level rise (m/ka),
     # background sedimentation rate (m/ka), 
     # slip increment (m/ka), and time interval at which 
     # growth layers are added (ka)
-    t_inc = sed[0]
-    t_total = sed[1] * 1e3 # convert to ka
-    base_level_rise = sed[2] * t_inc
-    sed_rate = sed[3] * t_inc
-    sinc = sed[4] * t_inc
-    t_grow = sed[5]
+    t_total = sed[0] * 1e3 # convert to ka
+    base_level_rise = sed[1] 
+    sed_rate = sed[2] 
+    sinc = sed[3] 
+    t_grow = sed[4]
 
     # diffusion in m^2/ka
     diffus = diffusion * 1e3 
 
     # number of slip increments
-    ninc = int(t_total/t_inc) 
+    ninc = int(t_total) 
 
     # tranformation matrix from geographic 
     # to fault coordinates
@@ -207,7 +204,7 @@ def trishear_sed(yp, p_sect, p_tri, sed, diffusion=3.0):
         display(fig)
 
         # add growth layers
-        c_grow += t_inc # each increment is t_inc ka
+        c_grow += 1.0 # each increment is 1.0 ka
         if c_grow >= t_grow:
             # add growth layer = duplicate the topmost bed
             YP = np.vstack((YP, YP[-1,:]))
