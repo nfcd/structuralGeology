@@ -9,7 +9,7 @@ This is a collection of Python Jupyter Notebooks for Structural Geology, and esp
 3. Functions in the functions folder
 4. Notebooks in the notebooks folder
 
-I think the best way to run the notebooks is in [VSCode](https://code.visualstudio.com). Note that you will need to install the Python, and Jupyter extensions. And of course you will need a Python distribution, the base environment of the Anaconda distribution works fine.
+The best way to run the notebooks is in [VSCode](https://code.visualstudio.com). Note that in VSCode you will need to install the Python and Jupyter extensions. And of course you will need a Python distribution, the base environment of the Anaconda distribution works fine.
 
 The list of notebooks is as follows:
 
