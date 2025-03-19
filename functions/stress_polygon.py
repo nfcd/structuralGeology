@@ -36,7 +36,7 @@ def stress_polygon(sv, pp, mu=0.6):
     nf_x = np.array([sh_min, sh_min, sv, sh_min])
     nf_y = np.array([sh_min, sv, sv, sh_min])
     ax.fill(nf_x, nf_y, "r", alpha=0.5, label="Normal")
-    # strike-slip polygon
+    # strike-slip faulting polygon
     ss_x = np.array([sh_min, sv, sv, sh_min])
     ss_y = np.array([sv, sv, sh_max, sv])
     ax.fill(ss_x, ss_y, "g", alpha=0.5, label="Strike-slip")
