@@ -52,8 +52,9 @@ The list of notebooks is as follows:
 37. [Trishear fault propagation folds](/notebooks/nb37_trishear.ipynb)
 38. [Tectono-sedimentary model](/notebooks/nb38_tect_sed_model.ipynb)
 39. [Seismic imaging](/notebooks/nb39_seismic_image.ipynb)
+40. [Stress polygon](/notebooks/nb40_stress_polygon.ipynb)
 
 
 I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last update: March. 12, 2025
+Last update: March. 19, 2025
