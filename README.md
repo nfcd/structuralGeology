@@ -53,7 +53,7 @@ The list of notebooks is as follows:
 38. [Tectono-sedimentary model](/notebooks/nb38_tect_sed_model.ipynb)
 39. [Seismic imaging](/notebooks/nb39_seismic_image.ipynb)
 40. [Stress polygon](/notebooks/nb40_stress_polygon.ipynb)
-41. [Area balance and shortening](/notebooks/nb41_area_balance.ipynb)
+41. [Uncertainty in shortening estimates](/notebooks/nb41_uncertainty_shortening.ipynb)
 
 
 I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
