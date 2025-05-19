@@ -34,8 +34,8 @@ The list of notebooks is as follows:
 
 ### Uncertainties
 
-14. [Uncertainties](/notebooks/nb14_uncertainties.ipynb)
-41- [Uncertainty in shortening estimates](/notebooks/nb41_uncertainty_shortening.ipynb)
+14. [Uncertainties](/notebooks/nb14_uncertainties.ipynb)<br>
+41. [Uncertainty in shortening estimates](/notebooks/nb41_uncertainty_shortening.ipynb)
 
 ### Cylindrical and planar best-fit
 
@@ -50,8 +50,8 @@ The list of notebooks is as follows:
 20. [Simple shear](/notebooks/nb20_simple_shear.ipynb)
 21. [General shear](/notebooks/nb21_general_shear.ipynb)
 22. [Mohr Circle for finite strain](/notebooks/nb22_mohr_circle_strain.ipynb)
-23. [The Fry method](/notebooks/nb23_fry_method.ipynb)
-32- [P and T axes](/notebooks/nb32_p_t_axes.ipynb)
+23. [The Fry method](/notebooks/nb23_fry_method.ipynb)<br>
+32. [P and T axes](/notebooks/nb32_p_t_axes.ipynb)
 
 ### Stress
 
@@ -62,8 +62,8 @@ The list of notebooks is as follows:
 28. [Slip tendency](/notebooks/nb28_slip_tendency.ipynb)
 29. [The failure envelope](/notebooks/nb29_failure_envelope.ipynb)
 30. [Which fault is more likely?](/notebooks/nb30_fault_likelihood.ipynb)
-31. [Faults and stress magnitudes](/notebooks/nb31_faults_magnitude_stress.ipynb)
-40- [Stress polygon](/notebooks/nb40_stress_polygon.ipynb)
+31. [Faults and stress magnitudes](/notebooks/nb31_faults_magnitude_stress.ipynb)<br>
+40. [Stress polygon](/notebooks/nb40_stress_polygon.ipynb)
 
 ### Folds
 
@@ -72,8 +72,8 @@ The list of notebooks is as follows:
 35. [Fixed axis fault propagation folds](/notebooks/nb35_fixed_axis_fpf.ipynb)
 36. [Parallel fault propagation folds](/notebooks/nb36_parallel_fpf.ipynb)
 37. [Trishear fault propagation folds](/notebooks/nb37_trishear.ipynb)
-38. [Tectono-sedimentary model](/notebooks/nb38_tect_sed_model.ipynb)
-42- [Trishear inverse modelling](/notebooks/nb42_trishear_inversion.ipynb)
+38. [Tectono-sedimentary model](/notebooks/nb38_tect_sed_model.ipynb)<br>
+42. [Trishear inverse modelling](/notebooks/nb42_trishear_inversion.ipynb)
 
 ### Geophysics
 
