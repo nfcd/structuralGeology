@@ -34,10 +34,8 @@ The list of notebooks is as follows:
 
 ### Uncertainties
 
-<ol>
-  <li>[Uncertainties](/notebooks/nb14_uncertainties.ipynb)</li>
-  <li value="41">[Uncertainty in shortening estimates](/notebooks/nb41_uncertainty_shortening.ipynb)</li>
-</ol>
+14. [Uncertainties](/notebooks/nb14_uncertainties.ipynb)\
+41  [Uncertainty in shortening estimates](/notebooks/nb41_uncertainty_shortening.ipynb)
 
 ### Cylindrical and planar best-fit
 
