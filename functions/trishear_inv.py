@@ -12,9 +12,9 @@ def back_trishear(xp, yp, tpar, sinc):
     
     Parameters
     ----------
-    xp: x-coordinates of points along the bed.
-    yp: y-coordinates of points along the bed.
-    tpar: [xtf, ytf, ramp, ps, tra, slip, c]
+    xp: array-like x-coordinates of points along the bed.
+    yp: array-like y-coordinates of points along the bed.
+    tpar: 7-element list with trishear parameters:
         xtf : x-coordinate of the fault tip.
         ytf : y-coordinate of the fault tip.
         ramp : ramp angle in radians.
@@ -26,9 +26,8 @@ def back_trishear(xp, yp, tpar, sinc):
 
     Returns
     -------
-    chisq = sum of squared residuals between
-        the restored bed and a linear fit
-        to it.
+    chisq = sum of squared residuals between the restored 
+            bed and a linear fit to it.
 
     Based on the Matlab scripts BackTrishear,
     in Allmendinger et al. (2012)
@@ -83,31 +82,24 @@ def back_trishear(xp, yp, tpar, sinc):
 
     return chisq
 
-def grid_search(xp, yp, bounds, sinc):
+def grid_search(xp, yp, bounds, sinc, output=False):
     """
     Grid search for the best trishear parameters.
     
     Parameters
     ----------
-    xp: x-coordinates of points along the bed.
-    yp: y-coordinates of points along the bed.
-    bounds: bounds for trishear parameters. A 7 element list
-        with each element having the minimum, maximum and 
-        step size of:
-        xtf : x-coordinate of the fault tip, index 0
-        ytf : y-coordinate of the fault tip, index 1
-        ramp : ramp angle in radians, index 2
-        ps : P/S ratio, index 3
-        tra : trishear angle in radians, index 4
-        slip : fault slip, index 5
-        c : concentration factor, index 6
-        If the parameter is fixed, provide the value 
-        of the parameter. For example [xtf, xtf, 0]
+    xp: array-like x-coordinates of points along the bed.
+    yp: array-like y-coordinates of points along the bed.
+    bounds : 7-element list where each element is 
+        [min, max, step] of the trishear parameter.
+        If a parameter is fixed, min == max.
+        Order: xtf, ytf, ramp, ps, tra, slip, c
     sinc: slip increment.
+    output: if True, print iteration log.
 
     Returns
     -------
-    tpar_best: best-fit trishear parameters.
+    tpar_best: list of best-fit trishear parameters.
     chisq_min: minimum chisq value.
     chisq: array of chisq values for each parameter combination.
     """
@@ -116,11 +108,13 @@ def grid_search(xp, yp, bounds, sinc):
         raise ValueError("bounds must have 7 elements")
     
     # check that bounds are correctly formatted
-    for bound in bounds:
+    for i, bound in enumerate(bounds):
         if len(bound) != 3:
             raise ValueError("each bound must have 3 elements")
         if bound[0] > bound[1]:
             raise ValueError("bounds must be in the order [min, max, step]")
+        if bound[2] < 0 and bound[0] < bound[1]:
+            raise ValueError(f"step size must be positive")
     
     # initialize trishear parameters to the minimum values
     tpar = [b[0] for b in bounds]
@@ -136,21 +130,22 @@ def grid_search(xp, yp, bounds, sinc):
     
     # prepare chisq array with shape based on number of steps per param
     shape = [len(r) for r in value_ranges]
-    chisq = np.zeros(shape)
+    chisq = np.full(shape, np.inf)
 
     # for index mapping
     index_ranges = [range(len(r)) for r in value_ranges]
 
     # initialize tpar_best, chisq_min and count
     tpar_best = tpar.copy()
-    chisq_min = 1e10
-    count = 0 # number of iterations
+    chisq_min = np.inf
+    count = 0  # number of iterations
 
-    # total number of models
-    total_models = np.prod(shape)
-    print(f"Total models: {total_models}")
-    # headings for the output
-    print("Model, [xt, yt, ramp, ps, tra, slip, c], chisq")
+    if output:
+        # total number of models
+        total_models = np.prod(shape)
+        print(f"Total models: {total_models}")
+        # headings for the output
+        print("Model, [xt, yt, ramp, ps, tra, slip, c], chisq")
 
     # iterate over all combinations of the free parameters
     for idx_tuple in itertools.product(*index_ranges):
@@ -169,101 +164,102 @@ def grid_search(xp, yp, bounds, sinc):
             chisq_min = chisq_temp
             tpar_best = tpar.copy()
 
-        # print progress
-        count += 1
-        formatted = [f"{x:.2f}" for x in tpar]
-        print(count, formatted, f"{chisq_temp:.2f}")
+        if output:
+            count += 1
+            par_str = [f"{x:.2f}" for x in tpar]
+            print(count, par_str, f"{chisq_temp:.2f}")
 
-    return tpar_best, chisq_min, chisq       
+    return tpar_best, chisq_min, chisq      
 
     
     
-def simulated_annealing(xp, yp, bounds, sinc, maxiter=100, initial_temp=5230.0):
+def simulated_annealing(xp, yp, bounds, sinc, maxiter=100, 
+                        initial_temp=5230.0, seed=None, 
+                        output=False,):
     """
-    Simulated annealing for the best trishear parameters.
-    
+    Simulated annealing for the best trishear parameters
+
     Parameters
     ----------
-    xp: x-coordinates of points along the bed.
-    yp: y-coordinates of points along the bed.
-    bounds: bounds for trishear parameters. A 7 element list
-        with each element having the minimum and maximum of:
-        xtf : x-coordinate of the fault tip, index 0
-        ytf : y-coordinate of the fault tip, index 1
-        ramp : ramp angle in radians, index 2
-        ps : P/S ratio, index 3
-        tra : trishear angle in radians, index 4
-        slip : fault slip, index 5
-        c : concentration factor, index 6
-        If the parameter is fixed, provide the value 
-        of the parameter. For example [xtf, xtf]
-    sinc: slip increment.
-    maxiter: maximum number of iterations.
-    initial_temp: initial temperature.
+    xp : array-like x-coordinates of points along the bed.
+    yp : array-like y-coordinates of points along the bed.
+    bounds : 7-element list where each element is 
+        [min, max] of the trishear parameter.
+        If a parameter is fixed, min == max.
+        Order: xtf, ytf, ramp, ps, tra, slip, c
+    sinc : slip increment.
+    maxiter : optional, maximum number of cycles.
+    initial_temp : optional, initial temperature for 
+                   dual_annealing.
+    seed : optional, random seed for reproducibility.
+    output : optional, if True, print progress.
 
     Returns
     -------
-    tpar_best: best trishear parameters.
-    chisq_min: minimum chisq value.
-    history: parameters and chisq values for each iteration.
+    tpar_best : list of best trishear parameters
+    chisq_min : minimum chisq value found
+    history : array with rows [parameters..., chisq] for 
+              each evaluation.
     """
-    # check that bounds have 7 elements
+    # Validate bounds
     if len(bounds) != 7:
         raise ValueError("bounds must have 7 elements")
-    
-    # check that bounds are correctly formatted
-    for bound in bounds:
-        if len(bound) != 2:
-            raise ValueError("each bound must have 3 elements")
-        if bound[0] > bound[1]:
-            raise ValueError("bounds must be in the order [min, max, step]")
-    
-    # initialize trishear parameters to the minimum values
-    tpar = [b[0] for b in bounds]
-    
-    # find the free parameters
-    index_free = []
-    bounds_free = []
-    for i, bound in enumerate(bounds):
-        if bound[0] < bound[1]:
-            index_free.append(i)
-            bounds_free.append(bound)
+    for b in bounds:
+        if len(b) != 2:
+            raise ValueError("Each bound must have two elements [min, max].")
+        if b[0] > b[1]:
+            raise ValueError("Bounds must be in the order [min, max].")
 
-    # initialize tpar_best and history
-    tpar_best = tpar.copy()
+    # Initial parameters
+    tpar = [b[0] for b in bounds]
+
+    # Identify free parameters and their bounds
+    index_free = [i for i, b in enumerate(bounds) if b[0] < b[1]]
+    bounds_free = [bounds[i] for i in index_free]
+
     history = []
 
-    # headings for the output
-    print("Model, [xt, yt, ramp, ps, tra, slip, c], chisq")
+    if output:
+        print("Model, [xt, yt, ramp, ps, tra, slip, c], chisq")
 
-    # define the objective function
+    # Objective function to minimize
     def objective(params):
-        for i in range(len(index_free)):
-            tpar[index_free[i]] = params[i]
+        # update tpar with free parameters
+        for idx, val in zip(index_free, params):
+            tpar[idx] = val
+
         chisq = back_trishear(xp, yp, tpar, sinc)
         history.append((tpar.copy(), chisq))
-        # print progress
-        formatted = [f"{x:.2f}" for x in tpar]
-        print(len(history), formatted, f"{chisq:.2f}")
+
+        if output:
+            par_str = [f"{x:.2f}" for x in tpar]
+            print(len(history), par_str, f"{chisq:.2f}")
 
         return chisq
-    
-    # run dual annealing
-    result = dual_annealing(objective, bounds_free, 
-                            maxiter=maxiter, 
+
+    # Prepare random seed dict for dual_annealing 
+    # (only available in recent scipy versions)
+    seed_kwargs = {"seed": seed} if seed is not None else {}
+
+    # Run dual_annealing optimizer
+    result = dual_annealing(objective, bounds_free,
+                            maxiter=maxiter,
                             initial_temp=initial_temp,
-                            no_local_search=True)
-    
-    # extract the best parameters and chisq
-    par_best = result.x
-    for i in range(len(index_free)):
-        tpar_best[index_free[i]] = par_best[i]
+                            no_local_search=True,
+                            **seed_kwargs)
+
+    # Extract best parameters into full vector
+    tpar_best = tpar.copy()
+    for idx, val in zip(index_free, result.x):
+        tpar_best[idx] = val
+
     chisq_min = result.fun
-    
-    # extract the history
+
+    # Convert history to numpy array with shape (num_iters, 8)
+    # Each row: 7 parameters + chisq
     tpar_history = np.array([h[0] for h in history])
-    chisq = np.array([h[1] for h in history])
-    history = np.column_stack((tpar_history, chisq))
+    chisq_history = np.array([h[1] for h in history])
+    history = np.column_stack((tpar_history, chisq_history))
 
     return tpar_best, chisq_min, history
 
@@ -274,7 +270,8 @@ def restore_beds(beds, tpar, sinc):
     Parameters
     ----------
     beds: list of beds to restore.
-    tpar: trishear parameters.
+    tpar: 7-element list with trishear parameters
+          Order: xtf, ytf, ramp, ps, tra, slip, c
     sinc: slip increment.
 
     Returns
@@ -392,8 +389,9 @@ def deform_beds(beds, beds_obs, tpar, sinc):
     Parameters
     ----------
     beds: list of beds to deform.
-    beds_obs: list of observed deformed beds.
-    tpar: trishear parameters.
+    beds_obs: list of observed beds.
+    tpar: 7-element list with trishear parameters
+          Order: xtf, ytf, ramp, ps, tra, slip, c
     sinc: slip increment.
 
     Returns
