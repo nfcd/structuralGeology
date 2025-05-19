@@ -66,7 +66,7 @@ The list of notebooks is as follows:
 
 ### Folds
 
-8- [Downplunge projection](/notebooks/nb8_downplunge_proj.ipynb)<br>
+8-  [Downplunge projection](/notebooks/nb8_downplunge_proj.ipynb)<br>
 33- [Dip isogons](/notebooks/nb33_dip_isogons.ipynb)<br>
 34- [Fault bend folds](/notebooks/nb34_fault_bend_fold.ipynb)<br>
 35- [Fixed axis fault propagation folds](/notebooks/nb35_fixed_axis_fpf.ipynb)<br>
