@@ -15,7 +15,7 @@ The list of notebooks is as follows:
 
 ### Orientations
 
-1- [Orientation](/notebooks/nb1_orientation.ipynb)
+1- [Orientation](/notebooks/nb1_orientation.ipynb)<br>
 2- [Vectors](/notebooks/nb2_vectors.ipynb)
 3- [Vector operations](/notebooks/nb3_vector_operations.ipynb)
 4- [Three points problem](/notebooks/nb4_three_points.ipynb)
