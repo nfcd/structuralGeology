@@ -81,4 +81,4 @@ The list of notebooks is as follows:
 
 I will keep adding notebooks. If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last update: May 19, 2025
+Last update: June 10, 2025

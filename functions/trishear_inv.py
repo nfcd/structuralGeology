@@ -175,7 +175,7 @@ def grid_search(xp, yp, bounds, sinc, output=False):
     
 def simulated_annealing(xp, yp, bounds, sinc, maxiter=100, 
                         initial_temp=5230.0, seed=None, 
-                        output=False,):
+                        output=False):
     """
     Simulated annealing for the best trishear parameters
 
