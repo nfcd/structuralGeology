@@ -22,6 +22,7 @@ def stress_polygon(sv, pp, mu=0.6):
     # Eq. 4.47 in Zoback (2010)
     sh_max = pp + (sv - pp) * s_rat
 
+    # create figure and set axes
     fig, ax = plt.subplots()
     ax.set_aspect("equal")
     ax.set_xlabel(r"$\sigma_{\mathrm{hmin}}$ (MPa)")

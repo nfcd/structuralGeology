@@ -215,5 +215,7 @@ def find_gam(gam_guess, ramp):
     """
     def f(gam):
         return np.sin(2*gam) / (2*(np.cos(gam))**2 + 1) - np.tan(ramp)
+    
     gam_sol = fsolve(f, gam_guess)
+    
     return gam_sol[0]

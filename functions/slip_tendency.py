@@ -33,13 +33,13 @@ def slip_tendency(p_stress, pole):
 	m = np.dot(s2_dc,pole)
 	n = np.dot(s3_dc,pole)
 
-	# calculate the slip tendency
+	# calculate normal and shear traction
 	sigma = s1 * l**2 + s2 * m**2 + s3 * n**2
 	tau = np.sqrt((s1-s2)**2 * l**2 * m**2 + 
 					(s2-s3)**2 * m**2 * n**2 + 
 					(s3-s1)**2 * n**2 * l**2)
 	
-	# slip tendency
+	# calculate slip tendency
 	Ts = tau/sigma
 
 	return sigma, tau, Ts

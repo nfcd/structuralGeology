@@ -1,7 +1,7 @@
 """
-The two functions below were made by Wiktor Weibull
+The two functions below were written by Wiktor Weibull
 at the University of Stavanger, Norway
-Any questions or comments, please contact:
+Any questions or comments, please contact him at:
 wiktor.w.weibull@uis.no
 """
 import numpy as np

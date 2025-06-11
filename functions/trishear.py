@@ -228,18 +228,4 @@ def vel_trishear(xx, yy, sinc, m, c):
             vy = (sinc/2.0) * (m/a) * ((ayy/(xx*m))**d - 1.0)
     
     return vx, vy
-
-            
-
-
-        
-
-
-
-
-
-    
-
-
-        
-    
+  

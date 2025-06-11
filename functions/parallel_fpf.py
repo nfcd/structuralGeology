@@ -241,5 +241,7 @@ def find_gam_star(gam_guess, ramp):
     """
     def f(gam_star):
         return (1.+2.*np.cos(gam_star)**2)/np.sin(2.*gam_star) + (np.cos(ramp)-2.)/np.sin(ramp)
+    
     gam_sol = fsolve(f, gam_guess)
+    
     return gam_sol[0]

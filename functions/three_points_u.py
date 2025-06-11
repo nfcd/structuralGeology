@@ -43,7 +43,7 @@ def three_points_u(p1,p2,p3):
 	# find the trend and plunge of the pole
 	trd, plg = cart_to_sph_u(p[0],p[1],p[2])
 	
-	# find stk and dip of plane
+	# find strike and dip of plane
 	stk, dip = plane_from_pole(trd, plg)
 	
 	return stk, dip
