@@ -74,6 +74,7 @@ The list of notebooks is as follows:
 37- [Trishear fault propagation folds](/notebooks/nb37_trishear.ipynb)<br>
 38- [Tectono-sedimentary model](/notebooks/nb38_tect_sed_model.ipynb)<br>
 42- [Trishear inverse modelling](/notebooks/nb42_trishear_inversion.ipynb)<br>
+43- [Trishear modelling of Shijia trench site](/notebooks/nb43_trishear_shijia.ipynb)<br>
 
 ### Geophysics
 
@@ -81,4 +82,4 @@ The list of notebooks is as follows:
 
 If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last update: June 11, 2025
+Last update: July 22, 2025

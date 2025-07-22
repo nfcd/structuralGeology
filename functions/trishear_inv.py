@@ -170,12 +170,9 @@ def grid_search(xp, yp, bounds, sinc, output=False):
             print(count, par_str, f"{chisq_temp:.2f}")
 
     return tpar_best, chisq_min, chisq      
-
-    
-    
+   
 def simulated_annealing(xp, yp, bounds, sinc, maxiter=100, 
-                        initial_temp=5230.0, seed=None, 
-                        output=False):
+                        initial_temp=5230.0, seed=None, output=False):
     """
     Simulated annealing for the best trishear parameters
 
@@ -190,7 +187,8 @@ def simulated_annealing(xp, yp, bounds, sinc, maxiter=100,
     sinc : slip increment.
     maxiter : optional, maximum number of cycles.
     initial_temp : optional, initial temperature for 
-                   dual_annealing.
+                   dual_annealing. Range is [0.01, 5.e4].
+                   Default is 5230.0.
     seed : optional, random seed for reproducibility.
     output : optional, if True, print progress.
 
@@ -263,7 +261,7 @@ def simulated_annealing(xp, yp, bounds, sinc, maxiter=100,
 
     return tpar_best, chisq_min, history
 
-def restore_beds(beds, tpar, sinc):
+def restore_beds(beds, tpar, sinc, plot=True, figsize=(6.4, 4.8)):
     """
     Restore the beds using trishear parameters.
     
@@ -273,6 +271,8 @@ def restore_beds(beds, tpar, sinc):
     tpar: 7-element list with trishear parameters
           Order: xtf, ytf, ramp, ps, tra, slip, c
     sinc: slip increment.
+    plot: if True, plot the restoration process.
+    figsize: size of the plot figure.
 
     Returns
     -------
@@ -317,8 +317,9 @@ def restore_beds(beds, tpar, sinc):
         fy = (bed[:, 0] - xtf) * a21 + (bed[:, 1] - ytf) * a22
         beds_transf.append(np.column_stack((fx, fy)))
 
-    # create a figure and axis
-    fig, ax = plt.subplots()
+    if plot:
+        # create a figure and axis
+        fig, ax = plt.subplots(figsize=figsize)
 
     # restore the beds
     for i in range(ninc):
@@ -347,31 +348,33 @@ def restore_beds(beds, tpar, sinc):
         xti = xtf + (psr * i * np.abs(sincr)) * a11
         yti = ytf + (psr * i * np.abs(sincr)) * a12
 
-        # clear previous plot
-        ax.clear()
+        if plot:
+            # clear previous plot
+            ax.clear()
         
-        # axis settings
-        ax.set_xlim(x_min-extent_x*1.5, x_max+extent_x*0.1)
-        ax.set_ylim(y_min-extent_y*1.5, y_max+extent_y*0.1)
-        ax.set_aspect("equal")
+            # axis settings
+            ax.set_xlim(x_min-extent_x*1.5, x_max+extent_x*0.1)
+            ax.set_ylim(y_min-extent_y*1.5, y_max+extent_y*0.1)
+            ax.set_aspect("equal")
 
-        # plot the deformed beds in gray
-        for bed in beds:
-            ax.plot(bed[:, 0], bed[:, 1], ".", color="gray", markersize=1)
-        # plot the restored beds in blue
-        for bed in beds_rest:
-            ax.plot(bed[:, 0], bed[:, 1], "b.", markersize=1)
-        # plot the fault
-        ax.plot([xti, xti-125*a11], [yti, yti-125*a12], "r-", linewidth=2)
-        ax.plot(xti, yti, "ro", markersize=5)
+            # plot the deformed beds in gray
+            for bed in beds:
+                ax.plot(bed[:, 0], bed[:, 1], ".", color="gray", markersize=1)
+            # plot the restored beds in blue
+            for bed in beds_rest:
+                ax.plot(bed[:, 0], bed[:, 1], "b.", markersize=1)
+            # plot the fault
+            ax.plot([xti, xti-125*a11], [yti, yti-125*a12], "r-", linewidth=2)
+            ax.plot(xti, yti, "ro", markersize=5)
 
-        # clear previous plot
-        clear_output(wait=True)
-        # redisplay the updated plot
-        display(fig)
+            # clear previous plot
+            clear_output(wait=True)
+            # redisplay the updated plot
+            display(fig)
 
-    # prevents Jupyter from displaying another plot
-    plt.close(fig)
+    if plot:
+        # prevents Jupyter from displaying another plot
+        plt.close(fig)
 
     # lines fits to the restored beds
     for i in range(len(beds_rest)):
@@ -382,7 +385,7 @@ def restore_beds(beds, tpar, sinc):
 
     return beds_rest, xti, yti                  
 
-def deform_beds(beds, beds_obs, tpar, sinc):
+def deform_beds(beds, beds_obs, tpar, sinc, plot=True, figsize=(6.4, 4.8)):
     """
     Deform the beds using trishear parameters.
     
@@ -393,6 +396,8 @@ def deform_beds(beds, beds_obs, tpar, sinc):
     tpar: 7-element list with trishear parameters
           Order: xtf, ytf, ramp, ps, tra, slip, c
     sinc: slip increment.
+    plot: if True, plot the deformation process.
+    figsize: size of the plot figure.
 
     Returns
     -------
@@ -437,8 +442,9 @@ def deform_beds(beds, beds_obs, tpar, sinc):
         fy = (bed[:, 0] - xti) * a21 + (bed[:, 1] - yti) * a22
         beds_transf.append(np.column_stack((fx, fy)))
 
-    # create a figure and axis
-    fig, ax = plt.subplots()
+    if plot:
+        # create a figure and axis
+        fig, ax = plt.subplots(figsize=figsize)
 
     # restore the beds
     for i in range(ninc):
@@ -467,31 +473,32 @@ def deform_beds(beds, beds_obs, tpar, sinc):
         xtf = xti + (ps * i * np.abs(sinc)) * a11
         ytf = yti + (ps * i * np.abs(sinc)) * a12
 
-        # clear previous plot
-        ax.clear()
+        if plot:
+            # clear previous plot
+            ax.clear()
         
-        # axis settings
-        ax.set_xlim(x_min-extent_x*1.5, x_max+extent_x*0.1)
-        ax.set_ylim(y_min-extent_y*1.5, y_max+extent_y*0.1)
-        ax.set_aspect("equal")
+            # axis settings
+            ax.set_xlim(x_min-extent_x*1.5, x_max+extent_x*0.1)
+            ax.set_ylim(y_min-extent_y*1.5, y_max+extent_y*0.1)
+            ax.set_aspect("equal")
 
-        # plot the observed beds in gray
-        for bed in beds_obs:
-            ax.plot(bed[:, 0], bed[:, 1], ".", color="gray", markersize=1)
-        # plot the deformed beds in blue
-        for bed in beds_def:
-            ax.plot(bed[:, 0], bed[:, 1], "b.", markersize=1)
-        # plot the fault
-        ax.plot([xti, xtf], [yti, ytf], "r-", linewidth=2)
-        ax.plot(xtf, ytf, "ro", markersize=5)
+            # plot the observed beds in gray
+            for bed in beds_obs:
+                ax.plot(bed[:, 0], bed[:, 1], ".", color="gray", markersize=1)
+            # plot the deformed beds in blue
+            for bed in beds_def:
+                ax.plot(bed[:, 0], bed[:, 1], "b.", markersize=1)
+            # plot the fault
+            ax.plot([xti, xtf], [yti, ytf], "r-", linewidth=2)
+            ax.plot(xtf, ytf, "ro", markersize=5)
 
-        # clear previous plot
-        clear_output(wait=True)
-        # redisplay the updated plot
-        display(fig)
+            # clear previous plot
+            clear_output(wait=True)
+            # redisplay the updated plot
+            display(fig)
 
-    # prevents Jupyter from displaying another plot
-    plt.close(fig) 
+    if plot:
+        # prevents Jupyter from displaying another plot
+        plt.close(fig) 
 
     return beds_def, xtf, ytf      
-
