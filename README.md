@@ -59,6 +59,7 @@ The list of notebooks is as follows:
 26- [Normal and shear tractions on plane](/notebooks/nb26_tractions_on_plane.ipynb)<br>
 27- [Mohr Circle for stress in 3D](/notebooks/nb27_mohr_circle_stress_3d.ipynb)<br>
 28- [Slip tendency](/notebooks/nb28_slip_tendency.ipynb)<br>
+44- [Dilation tendency](/notebooks/nb44_dilation_tendency.ipynb)<br>
 29- [The failure envelope](/notebooks/nb29_failure_envelope.ipynb)<br>
 30- [Which fault is more likely?](/notebooks/nb30_fault_likelihood.ipynb)<br>
 31- [Faults and stress magnitudes](/notebooks/nb31_faults_magnitude_stress.ipynb)<br>
@@ -82,4 +83,4 @@ The list of notebooks is as follows:
 
 If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last update: July 22, 2025
+Last update: September 11, 2025
