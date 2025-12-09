@@ -15,7 +15,7 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 	(east) and y (north). Strain in z is assumed to be 
 	zero (plane strain)
 	
-	USE: cent,eps,ome,pstrain,rotc = 
+	USE: cent,eps,ome,pstrain,rotc,maxsh = 
 		grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax)
 	
 	pos = nstations x 2 matrix with x (east) and y (north)
@@ -36,7 +36,7 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 	plotpar = Parameter to color the cells: Max elongation
 		(plotpar = 0), minimum elongation
 		(plotpar = 1), rotation (plotpar = 2),
-		or dilatation (plotpar = 3)
+		dilatation (plotpar = 3), or max. shear strain (plotpar = 4)
 	plotst = A flag to plot the stations (1) or not (0)
 	fig = figure handle for the plot
 	ax = axis handle for the plot
@@ -51,6 +51,8 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 		the cells
 	rotc = ncells x 3 matrix with rotation components
 		of cells
+	maxsh = ncells x 1 vector with max. shear strain
+		of the cells.
 	
 	NOTE: Input/Output angles are in radians. Output
 		azimuths are given with respect to North
@@ -177,7 +179,8 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 	eps = np.zeros((3,3,ncells))
 	ome = np.zeros((3,3,ncells)) 
 	pstrain = np.zeros((3,3,ncells))
-	rotc = np.zeros((ncells,3)) 
+	rotc = np.zeros((ncells,3))
+	maxsh = np.zeros(ncells) 
 		
 	# for each cell
 	for i in range(ncells):
@@ -204,7 +207,7 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 				e[j,1] = x[j*2+3]
 			# compute strain
 			eps[:,:,i],ome[:,:,i],pstrain[:,:,i],\
-				rotc[i,:],_ = inf_strain(e)
+				rotc[i,:],_,maxsh[i] = inf_strain(e)
 
 	# variable to plot
 	# if maximum principal strain
@@ -224,6 +227,10 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 	elif plotpar == 3:
 		vp = pstrain[0,0,:]+pstrain[1,0,:]+pstrain[2,0,:]
 		lcb = "dilatation"
+	# if max. shear strain
+	elif plotpar == 4:
+		vp = maxsh
+		lcb = "max. shear strain"
 	
 	# patches and colors for cells
 	patches = []
@@ -240,7 +247,7 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 						[pos[inds[i,2],0],pos[inds[i,2],1]]]
 					# length in km
 					xpyp = np.divide(xpyp,1e3)
-					polygon = Polygon(xpyp, True)
+					polygon = Polygon(xpyp, closed=True)
 					patches.append(polygon)
 					colors.append(vp[i])
 	# if nearest neighbor or distance weighted
@@ -254,7 +261,7 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 						[XX[i+1,j+1],YY[i+1,j+1]],[XX[i+1,j],YY[i+1,j]]]
 					# length in km
 					xpyp = np.divide(xpyp,1e3)
-					polygon = Polygon(xpyp, True)
+					polygon = Polygon(xpyp, closed=True)
 					patches.append(polygon)
 					colors.append(vp[count])
 				count += 1
@@ -263,13 +270,22 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 	pcoll = PatchCollection(patches)
 	# cells colors
 	pcoll.set_array(np.array(colors))
-	# color map is blue to red
-	pcoll.set_cmap("bwr")
-	# positive values are red, negative are
-	# blue and zero is white
+	# minimum and maximum values
 	vmin = min(vp) 
 	vmax = max(vp)
-	norm=mcolors.TwoSlopeNorm(vmin=vmin,vcenter=0.0,vmax=vmax)
+	# if rotation or dilatation
+	if plotpar == 2 or plotpar == 3:
+		# color map is blue to red
+		pcoll.set_cmap("bwr")
+		# positive values are red, negative are
+		# blue and zero is white
+		norm=mcolors.TwoSlopeNorm(vmin=vmin,vcenter=0.0,vmax=vmax)
+	# else
+	else:
+		# color map is blue to red
+		pcoll.set_cmap("jet")
+		norm = mcolors.Normalize(vmin=vmin,vmax=vmax)
+	
 	pcoll.set_norm(norm)
 	
 	# draw cells
@@ -293,4 +309,4 @@ def grid_inf_strain(pos,disp,k,par,plotpar,plotst,fig,ax):
 	cbar = fig.colorbar(pcoll, label=lcb, ticks=ticks)
 	cbar.ax.set_yticklabels(lticks)
 	
-	return cent, eps, ome, pstrain, rotc
+	return cent, eps, ome, pstrain, rotc, maxsh

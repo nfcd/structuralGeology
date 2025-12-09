@@ -8,7 +8,7 @@ def inf_strain(e):
 	inf_strain computes infinitesimal strain from an input
 	displacement gradient tensor
 	
-	USE: eps,ome,pstrain,rotc,rot = inf_strain(e)
+	USE: eps,ome,pstrain,rotc,rot,maxsh = inf_strain(e)
 	
 	e = 3 x 3 displacement gradient tensor
 	eps = 3 x 3 strain tensor
@@ -20,6 +20,7 @@ def inf_strain(e):
 	rotc = 1 x 3 vector with rotation components
 	rot = 1 x 3 vector with rotation magnitude and trend
 		and plunge of rotation axis
+	maxsh = maximum shear strain 
 	
 	NOTE: Output trends and plunges of principal strains
 		and rotation axes are in radians
@@ -71,5 +72,11 @@ def inf_strain(e):
 		rot[1] = zero_twopi(rot[1]+np.pi)
 		rot[2] *= -1
 		rot[0] *= -1
+
+	# maximum shear strain
+	lmax = (1.0+pstrain[0,0])**2 # maximum quad. elongation
+	lmin = (1.0+pstrain[2,0])**2 # minimum quad. elongation
+	# maximum shear strain: Ramsay (1967) Eq. 3.46
+	maxsh = (lmax-lmin)/(2.0*np.sqrt(lmax*lmin))
 	
-	return eps, ome, pstrain, rotc, rot
+	return eps, ome, pstrain, rotc, rot, maxsh

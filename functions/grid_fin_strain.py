@@ -242,7 +242,7 @@ def grid_fin_strain(pos,disp,frame,k,par,plotpar,plotst,fig,ax):
 					xpyp = [[pos[inds[i,0],0],pos[inds[i,0],1]],\
 							[pos[inds[i,1],0],pos[inds[i,1],1]],\
 							[pos[inds[i,2],0],pos[inds[i,2],1]]]
-					polygon = Polygon(xpyp, True)
+					polygon = Polygon(xpyp, closed=True)
 					patches.append(polygon)
 					colors.append(vp[i])
 	# if nearest neighbor or distance weighted
@@ -254,7 +254,7 @@ def grid_fin_strain(pos,disp,frame,k,par,plotpar,plotst,fig,ax):
 				if min(inds[count,:]) >= 0:
 					xpyp = [[XX[i,j],YY[i,j]],[XX[i,j+1],YY[i,j+1]],\
 						[XX[i+1,j+1],YY[i+1,j+1]],[XX[i+1,j],YY[i+1,j]]]
-					polygon = Polygon(xpyp, True)
+					polygon = Polygon(xpyp, closed=True)
 					patches.append(polygon)
 					colors.append(vp[count])
 				count += 1
@@ -263,9 +263,19 @@ def grid_fin_strain(pos,disp,frame,k,par,plotpar,plotst,fig,ax):
 	pcoll = PatchCollection(patches)
 	# cells colors
 	pcoll.set_array(np.array(colors))
-	# color map is blue to red
-	pcoll.set_cmap("jet")
-	norm = mcolors.Normalize(vmin=vmin,vmax=vmax)
+	# if dilatation
+	if plotpar == 2:
+		# color map is blue to red
+		pcoll.set_cmap("bwr")
+		# positive values are red, negative are
+		# blue and zero is white
+		norm=mcolors.TwoSlopeNorm(vmin=vmin,vcenter=0.0,vmax=vmax)
+	# else
+	else:
+		# color map is blue to red
+		pcoll.set_cmap("jet")
+		norm = mcolors.Normalize(vmin=vmin,vmax=vmax)
+	
 	pcoll.set_norm(norm)
 	
 	# draw cells
