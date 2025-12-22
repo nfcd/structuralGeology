@@ -11,7 +11,7 @@ This is a collection of Python Jupyter Notebooks for Structural Geology, and esp
 
 The best way to run the notebooks is in [VSCode](https://code.visualstudio.com). Note that in VSCode you will need to install the Python and Jupyter extensions. And of course you will need a Python distribution, the base environment of the Anaconda distribution works fine.
 
-The list of notebooks is as follows:
+The list of the notebooks grouped by topic is as follows:
 
 ### Orientations
 
@@ -64,6 +64,7 @@ The list of notebooks is as follows:
 30- [Which fault is more likely?](/notebooks/nb30_fault_likelihood.ipynb)<br>
 31- [Faults and stress magnitudes](/notebooks/nb31_faults_magnitude_stress.ipynb)<br>
 40- [Stress polygon](/notebooks/nb40_stress_polygon.ipynb)<br>
+45- [Stress distributions and faulting](/notebooks/nb45_stress_dist_faulting.ipynb)<br>
 
 ### Folds
 
@@ -83,4 +84,4 @@ The list of notebooks is as follows:
 
 If you have any questions, please contact me at [nestor.cardozo@uis.no](mailto:nestor.cardozo@uis.no).
 
-Last updated: December 19, 2025
+Last updated: December 22, 2025
