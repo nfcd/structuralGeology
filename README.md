@@ -71,7 +71,7 @@ The list of the notebooks grouped by topic is as follows:
 8 - [Downplunge projection](/notebooks/nb8_downplunge_proj.ipynb)<br>
 33- [Dip isogons](/notebooks/nb33_dip_isogons.ipynb)<br>
 34- [Fault bend folds](/notebooks/nb34_fault_bend_fold.ipynb)<br>
-46- [Rollover folds](/notebooks/nb46_rollover_fold.ipynb)<br>
+46- [Rollover folds](/notebooks/nb46_rollover.ipynb)<br>
 35- [Fixed axis fault propagation folds](/notebooks/nb35_fixed_axis_fpf.ipynb)<br>
 36- [Parallel fault propagation folds](/notebooks/nb36_parallel_fpf.ipynb)<br>
 37- [Trishear fault propagation folds](/notebooks/nb37_trishear.ipynb)<br>
