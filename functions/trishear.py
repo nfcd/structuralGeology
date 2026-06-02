@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from IPython.display import display, clear_output
 
-def trishear(yp, p_sect, p_tri, sinc, G=0.0):
+def trishear(yp, p_sect, p_tri, sinc, G=-1.0):
     """
     trishear plots the evolution of a 2D trishear 
     fault propagation fold
@@ -18,9 +18,12 @@ def trishear(yp, p_sect, p_tri, sinc, G=0.0):
         the ramp angle, the P/S, the trishear angle,
         the fault slip, and the concentration factor
     sinc = slip increment
-    G = subsidence versus uplift rate. Growth strata
-        are added if G >= 1.0. The default is 0.0
-        which means no growth strata are added.
+    G = subsidence versus uplift rate. In compression,
+        growth strata are added if G >= 1.0. In extension,
+        growth strata are added if G >= 0.0. This prevents 
+        erosion of pre-growth strata both in compression and 
+        extension. The default is -1.0, which means no 
+        growth strata are added.
 
     Note: ramp and trishear angles should be in radians
           For reverse faults use positive slip and increment
@@ -63,8 +66,9 @@ def trishear(yp, p_sect, p_tri, sinc, G=0.0):
     # number of slip increments
     ninc = round(slip / sinc)
 
-    # growth strata, if G >= 1.0
-    if G >= 1.0:
+    # growth strata, if slip is positive (reverse fault) and G >= 1.0
+    # or if slip is negative (normal fault) and G >= 0.0
+    if slip > 0 and G >= 1.0  or slip < 0 and G >= 0.0:
         # top of pre-growth strata
         top = np.max(yp) 
         # number of growth layers
@@ -166,7 +170,7 @@ def trishear(yp, p_sect, p_tri, sinc, G=0.0):
         display(fig)
 
         # add growth strata
-        if G >= 1.0:
+        if slip > 0 and G >= 1.0  or slip < 0 and G >= 0.0:
             if i == count_g*ninc_g-1:
                 # update top
                 top += ninc_g * np.abs(sinc) * sin_ramp * G
